@@ -1,2 +1,4 @@
 jacobi
 jacobi.out
+*.pomp.*
+profile.*

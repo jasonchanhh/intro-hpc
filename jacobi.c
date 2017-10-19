@@ -29,13 +29,28 @@ static int MAX_ITERATIONS;
 static int SEED;
 static double CONVERGENCE_THRESHOLD;
 
-#define SEPARATOR "------------------------------------\n"
+#define SEPARATOR "-------------------------------------\n"
 
 // Return the current time in seconds since the Epoch
 double get_timestamp();
 
 // Parse command line arguments to set solver parameters
 void parse_arguments(int argc, char *argv[]);
+
+void iterate_jacobi(double *A, double *b, double *x, double *xtmp) {
+    int row, col;
+    double dot;
+    for (row = 0; row < N; row++)
+    {
+      dot = 0.0;
+      for (col = 0; col < N; col++)
+      {
+        if (row != col)
+          dot += A[row + col*N] * x[col];
+      }
+      xtmp[row] = (b[row] - dot) / A[row + row*N];
+    }
+}
 
 // Run the Jacobi solver
 // Returns the number of iterations performed
@@ -53,16 +68,7 @@ int run(double *A, double *b, double *x, double *xtmp)
   do
   {
     // Perfom Jacobi iteration
-    for (row = 0; row < N; row++)
-    {
-      dot = 0.0;
-      for (col = 0; col < N; col++)
-      {
-        if (row != col)
-          dot += A[row + col*N] * x[col];
-      }
-      xtmp[row] = (b[row] - dot) / A[row + row*N];
-    }
+    iterate_jacobi(A, b, x, xtmp);
 
     // Swap pointers
     ptrtmp = x;
