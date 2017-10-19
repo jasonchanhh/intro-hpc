@@ -2,7 +2,7 @@ default: jacobi
 
 CC = icc
 CFLAGS = -std=c99 -Wall
-LDFLAGS = -lm -O2
+LDFLAGS = -lm -O2 -fast -restrict
 SRC = jacobi.c
 
 TCC = tau_cc.sh
@@ -19,4 +19,3 @@ clean: jacobi
 		rm -f jacobi.out
 		rm -f *.pomp.*
 		rm -f profile.*
-
