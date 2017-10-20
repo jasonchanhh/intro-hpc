@@ -52,7 +52,7 @@ int run(float *A, float *b, float *x, float *xtmp)
   itr = 0;
   do
   {
-    sqdiff = 0.0
+    sqdiff = 0.0;
     // Perfom Jacobi iteration
     for (row = 0; row < N; row++)
     {
@@ -64,8 +64,8 @@ int run(float *A, float *b, float *x, float *xtmp)
       }
       xtmp[row] = (b[row] - dot) / A[row + row*N];
       // Check for convergence
-      diff    = x[row] - xtmp[row]
-      sqdiff += diff * diff
+      diff    = x[row] - xtmp[row];
+      sqdiff += diff * diff;
 
     }
 
