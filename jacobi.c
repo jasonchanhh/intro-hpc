@@ -51,13 +51,14 @@ float convergence_check(float x_i, float xtmp_i) {
   return diff * diff;
 }
 
-void inner_loop(int row, float *A, float *x) {
+float inner_loop(int row, float *A, float *x) {
   float dot = 0.0;
   for (int col = 0; col < N; col++)
   {
     if (row != col)
       dot += A[row + col*N] * x[col];
   }
+  return dot;
 }
 
 // Run the Jacobi solver
@@ -67,6 +68,7 @@ int run(float *A, float *b, float *x, float *xtmp)
   int itr;
   int row;
   float sqdiff;
+  float dot;
   float *ptrtmp;
 
   // Loop until converged or maximum iterations reached
@@ -77,7 +79,7 @@ int run(float *A, float *b, float *x, float *xtmp)
     // Perfom Jacobi iteration
     for (row = 0; row < N; row++)
     {
-      inner_loop(row, A, x);
+      dot = inner_loop(row, A, x);
       // for (col = 0; col < N; col++)
       // {
       //   if (row != col)
