@@ -64,8 +64,8 @@ int run(float *A, float *b, float *x, float *xtmp)
       }
       xtmp[row] = (b[row] - dot) / A[row + row*N];
       // Check for convergence
-      // diff    = x[row] - xtmp[row];
-      // sqdiff += diff * diff;
+      diff    = x[row] - xtmp[row];
+      sqdiff += diff * diff;
 
     }
 
@@ -74,12 +74,12 @@ int run(float *A, float *b, float *x, float *xtmp)
     xtmp   = ptrtmp;
 
     // Check for convergence
-    sqdiff = 0.0;
-    for (row = 0; row < N; row++)
-    {
-      diff    = xtmp[row] - x[row];
-      sqdiff += diff * diff;
-    }
+    // sqdiff = 0.0;
+    // for (row = 0; row < N; row++)
+    // {
+    //   diff    = xtmp[row] - x[row];
+    //   sqdiff += diff * diff;
+    // }
 
     itr++;
   } while ((itr < MAX_ITERATIONS) && (sqrt(sqdiff) > CONVERGENCE_THRESHOLD));
