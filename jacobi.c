@@ -77,7 +77,7 @@ int run(float *A, float *b, float *x, float *xtmp)
     // Perfom Jacobi iteration
     for (row = 0; row < N; row++)
     {
-      inner_loop(row, A, x)
+      inner_loop(row, A, x);
       // for (col = 0; col < N; col++)
       // {
       //   if (row != col)
