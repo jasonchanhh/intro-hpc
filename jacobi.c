@@ -37,6 +37,13 @@ double get_timestamp();
 // Parse command line arguments to set solver parameters
 void parse_arguments(int argc, char *argv[]);
 
+void swap_pointers(float *x, float *xtmp) {
+  float *ptrtmp;
+  ptrtmp = x;
+  x      = xtmp;
+  xtmp   = ptrtmp;
+}
+
 // Run the Jacobi solver
 // Returns the number of iterations performed
 int run(float *A, float *b, float *x, float *xtmp)
@@ -68,11 +75,6 @@ int run(float *A, float *b, float *x, float *xtmp)
       sqdiff += diff * diff;
 
     }
-
-    // Swap pointers
-    ptrtmp = x;
-    x      = xtmp;
-    xtmp   = ptrtmp;
 
     // Check for convergence
     // sqdiff = 0.0;
