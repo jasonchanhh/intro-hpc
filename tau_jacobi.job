@@ -15,4 +15,4 @@ echo Time is `date`
 echo Directory is `pwd`
 echo PBS job ID is $PBS_JOBID
 
-./jacobi --norder 500 --iterations 20000
+./jacobi --norder 1000 --iterations 20000

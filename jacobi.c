@@ -47,8 +47,8 @@ void swap_pointers(float *x, float *xtmp) {
 float convergence_check(float x_i, float xtmp_i) {
   float diff = 0;
 
-  diff    = x_i - xtmp_i
-  return diff * diff
+  diff    = x_i - xtmp_i;
+  return diff * diff;
 }
 
 void inner_loop(int row, float *A, float *x) {
