@@ -76,6 +76,8 @@ int run(float *A, float *b, float *x, float *xtmp)
 
     }
 
+	swap_pointers(x, xtmp);
+
     // Check for convergence
     // sqdiff = 0.0;
     // for (row = 0; row < N; row++)
