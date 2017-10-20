@@ -52,6 +52,7 @@ int run(float *A, float *b, float *x, float *xtmp)
   itr = 0;
   do
   {
+    sqdiff = 0.0
     // Perfom Jacobi iteration
     for (row = 0; row < N; row++)
     {
@@ -62,6 +63,10 @@ int run(float *A, float *b, float *x, float *xtmp)
           dot += A[row + col*N] * x[col];
       }
       xtmp[row] = (b[row] - dot) / A[row + row*N];
+      // Check for convergence
+      diff    = x[row] - xtmp[row]
+      sqdiff += diff * diff
+
     }
 
     // Swap pointers
@@ -70,12 +75,12 @@ int run(float *A, float *b, float *x, float *xtmp)
     xtmp   = ptrtmp;
 
     // Check for convergence
-    sqdiff = 0.0;
-    for (row = 0; row < N; row++)
-    {
-      diff    = xtmp[row] - x[row];
-      sqdiff += diff * diff;
-    }
+    // sqdiff = 0.0;
+    // for (row = 0; row < N; row++)
+    // {
+    //   diff    = xtmp[row] - x[row];
+    //   sqdiff += diff * diff;
+    // }
 
     itr++;
   } while ((itr < MAX_ITERATIONS) && (sqrt(sqdiff) > CONVERGENCE_THRESHOLD));
