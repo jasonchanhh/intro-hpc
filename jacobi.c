@@ -44,6 +44,13 @@ void swap_pointers(float *x, float *xtmp) {
   xtmp   = ptrtmp;
 }
 
+float convergence_check(float x_i, float xtmp_i) {
+  float diff = 0;
+
+  diff    = x_i - xtmp_i
+  return diff * diff
+}
+
 // Run the Jacobi solver
 // Returns the number of iterations performed
 int run(float *A, float *b, float *x, float *xtmp)
@@ -51,7 +58,6 @@ int run(float *A, float *b, float *x, float *xtmp)
   int itr;
   int row, col;
   float dot;
-  float diff;
   float sqdiff;
   float *ptrtmp;
 
@@ -71,12 +77,11 @@ int run(float *A, float *b, float *x, float *xtmp)
       }
       xtmp[row] = (b[row] - dot) / A[row + row*N];
       // Check for convergence
-      diff    = x[row] - xtmp[row];
-      sqdiff += diff * diff;
+      sqdiff += convergence_check(x[row], xtmp[row]);
 
     }
 
-	swap_pointers(x, xtmp);
+    swap_pointers(x, xtmp);
 
     // Check for convergence
     // sqdiff = 0.0;
