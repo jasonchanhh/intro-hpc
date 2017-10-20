@@ -44,13 +44,6 @@ void swap_pointers(float *x, float *xtmp) {
   xtmp   = ptrtmp;
 }
 
-float convergence_check(float x_i, float xtmp_i) {
-  float diff = 0;
-
-  diff    = x_i - xtmp_i;
-  return diff * diff;
-}
-
 float inner_loop(int row, int col, float *A, float *x) {
   float dot = 0.0;
   if (row != col)
@@ -64,6 +57,7 @@ int run(float *A, float *b, float *x, float *xtmp)
 {
   int itr;
   int row, col;
+  float diff;
   float sqdiff;
   float dot;
   float *ptrtmp;
@@ -84,7 +78,8 @@ int run(float *A, float *b, float *x, float *xtmp)
       }
       xtmp[row] = (b[row] - dot) / A[row + row*N];
       // Check for convergence
-      sqdiff += convergence_check(x[row], xtmp[row]);
+      diff    = x[row] - xtmp[row];
+      sqdiff += diff * diff;
 
     }
 
