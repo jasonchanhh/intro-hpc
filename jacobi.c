@@ -104,7 +104,7 @@ int main(int argc, char *argv[])
     for (int col = 0; col < N; col++)
     {
       float value = rand()/(float)RAND_MAX;
-      A[row + col*N] = value;
+      A[row*N + col] = value;
       rowsum += value;
     }
     A[row + row*N] += rowsum;
@@ -124,7 +124,7 @@ int main(int argc, char *argv[])
     float tmp = 0.0;
     for (int col = 0; col < N; col++)
     {
-      tmp += A[row + col*N] * x[col];
+      tmp += A[row*N + col] * x[col];
     }
     tmp = b[row] - tmp;
     err += tmp*tmp;
