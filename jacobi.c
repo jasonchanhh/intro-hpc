@@ -60,26 +60,18 @@ int run(float *A, float *b, float *x, float *xtmp)
       for (col = 0; col < N; col++)
       {
         if (row != col)
-          dot += A[row + col*N] * x[col];
+          dot += A[row*N + col] * x[col]; // this is accessed row-column order
       }
-      xtmp[row] = (b[row] - dot) / A[row + row*N];
-      // Check for convergence
-      // diff    = x[row] - xtmp[row];
-      // sqdiff += diff * diff;
+      xtmp[row] = (b[row] - dot) / A[row + row*N]; // this accesses the diagonals
+      // Check for convergence, merge loops
+      diff    = x[row] - xtmp[row];
+      sqdiff += diff * diff;
 
     }
 
     ptrtmp = x;
     x      = xtmp;
     xtmp   = ptrtmp;
-
-    // Check for convergence
-    sqdiff = 0.0;
-    for (row = 0; row < N; row++)
-    {
-      diff    = xtmp[row] - x[row];
-      sqdiff += diff * diff;
-    }
 
     itr++;
   } while ((itr < MAX_ITERATIONS) && (sqrt(sqdiff) > CONVERGENCE_THRESHOLD));
