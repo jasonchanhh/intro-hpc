@@ -64,6 +64,7 @@ int run(float *A, float *b, float *x, float *xtmp)
       {
           dot += A[row*N + col] * x[col]; // this is accessed row-column order
       }
+      A[row + row*N] = diagonal;
       xtmp[row] = (b[row] - dot) / diagonal;
       // Check for convergence, merge loops
       diff    = x[row] - xtmp[row];
