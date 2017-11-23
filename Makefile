@@ -14,7 +14,7 @@ jacobi: $(SRC)
 tau: $(SRC)
 	$(TCC) $(TFLAGS) -o jacobi jacobi.c
 
-clean: jacobi
+clean: 
 		rm -f jacobi
 		rm -f jacobi.out
 		rm -f *.pomp.*
