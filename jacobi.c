@@ -47,6 +47,7 @@ int run(float *A, float *b, float *x, float *xtmp)
   float sqdiff;
   float dot;
   float *ptrtmp;
+  float diagonal;
 
   // Loop until converged or maximum iterations reached
   itr = 0;
@@ -57,12 +58,13 @@ int run(float *A, float *b, float *x, float *xtmp)
     for (row = 0; row < N; row++)
     {
       dot = 0.0;
+      diagonal = A[row + row*N]; // this accesses the diagonals
+      A[row + row*N] = 0;
       for (col = 0; col < N; col++)
       {
-        if (row != col)
           dot += A[row*N + col] * x[col]; // this is accessed row-column order
       }
-      xtmp[row] = (b[row] - dot) / A[row + row*N]; // this accesses the diagonals
+      xtmp[row] = (b[row] - dot) / diagonal;
       // Check for convergence, merge loops
       diff    = x[row] - xtmp[row];
       sqdiff += diff * diff;
