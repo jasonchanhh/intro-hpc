@@ -56,30 +56,31 @@ int run(float *restrict A, float *restrict b, float *restrict x, float *restrict
   {
     sqdiff = 0.0;
     // Perfom Jacobi iteration
-#pragma omp parallel private(row)
-    for (row = 0; row < N; row++)
-    {
-      dot = 0.0;
-      diagonal = A[row + row*N]; // this accesses the diagonals
-      A[row + row*N] = 0;
-#pragma omp for reduction(+:dot) private(col)
-      for (col = 0; col < N; col++)
+#pragma omp parallel private(row,col) {
+      for (row = 0; row < N; row++)
       {
-          dot = dot + (A[row*N + col] * x[col]); // this is accessed row-column order
+        dot = 0.0;
+        diagonal = A[row + row*N]; // this accesses the diagonals
+        A[row + row*N] = 0;
+#pragma omp for reduction(+:dot)
+        for (col = 0; col < N; col++)
+        {
+            dot = dot + (A[row*N + col] * x[col]); // this is accessed row-column order
+        }
+        A[row + row*N] = diagonal;
+        xtmp[row] = (b[row] - dot) / diagonal;
+        // Check for convergence, merge loops
+        diff    = x[row] - xtmp[row];
+        sqdiff += diff * diff;
+
       }
-      A[row + row*N] = diagonal;
-      xtmp[row] = (b[row] - dot) / diagonal;
-      // Check for convergence, merge loops
-      diff    = x[row] - xtmp[row];
-      sqdiff += diff * diff;
-
     }
-
     ptrtmp = x;
     x      = xtmp;
     xtmp   = ptrtmp;
 
     itr++;
+
   } while ((itr < MAX_ITERATIONS) && (sqrt(sqdiff) > CONVERGENCE_THRESHOLD));
 
   return itr;
