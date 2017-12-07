@@ -39,14 +39,14 @@ void parse_arguments(int argc, char *argv[]);
 
 // Run the Jacobi solver
 // Returns the number of iterations performed
-int run(float *A, float *b, float *x, float *xtmp)
+int run(float *restrict A, float *restrict b, float *restrict x, float *restrict xtmp)
 {
   int itr;
   int row, col;
   float diff;
   float sqdiff;
   float dot;
-  float *ptrtmp;
+  float *restrict ptrtmp;
   float diagonal;
 
   // Loop until converged or maximum iterations reached
@@ -86,10 +86,10 @@ int main(int argc, char *argv[])
 {
   parse_arguments(argc, argv);
 
-  float *A    = malloc(N*N*sizeof(float));
-  float *b    = malloc(N*sizeof(float));
-  float *x    = malloc(N*sizeof(float));
-  float *xtmp = malloc(N*sizeof(float));
+  float *restrict A    = malloc(N*N*sizeof(float));
+  float *restrict b    = malloc(N*sizeof(float));
+  float *restrict x    = malloc(N*sizeof(float));
+  float *restrict xtmp = malloc(N*sizeof(float));
 
   printf(SEPARATOR);
   printf("Matrix size:            %dx%d\n", N, N);
