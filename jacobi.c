@@ -56,7 +56,7 @@ int run(float *restrict A, float *restrict b, float *restrict x, float *restrict
   {
     sqdiff = 0.0;
     // Perfom Jacobi iteration
-#pragma omp parallel private(row)
+#pragma omp parallel for
     for (row = 0; row < N; row++)
     {
       dot = 0.0;
@@ -114,17 +114,10 @@ int main(int argc, char *argv[])
       rowsum += value;
     }
     A[row + row*N] += rowsum;
-    // b[row] = rand()/(float)RAND_MAX;
-    // x[row] = 0.0;
-  }
-
-  for (int row = 0; row < N; row++) {
     b[row] = rand()/(float)RAND_MAX;
+    x[row] = 0.0;
   }
 
-  for (int row = 0; row < N; row++) {
-    x[row] = 0;
-  }
   // Run Jacobi solver
   double solve_start = get_timestamp();
   int itr = run(A, b, x, xtmp);

@@ -5,7 +5,7 @@
 #PBS -j oe
 #PBS -q teaching
 #PBS -l nodes=1:ppn=4
-#PBS -l walltime=00:30:00
+#PBS -l walltime=00:10:00
 
 #! Mail to user if job aborts
 #PBS -m a
