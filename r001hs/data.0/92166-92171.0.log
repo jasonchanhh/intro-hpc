@@ -1,0 +1,2 @@
+92171 : ERROR : Valid poll symbol is not found in the binary of the analysis target. 
+92171 : ERROR : Binary file of the analysis target does not contain symbols required for profiling. See the 'Analyzing Statically Linked Binaries' help topic for more details. 

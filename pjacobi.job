@@ -40,7 +40,4 @@ echo The number of nodes is $numnodes
 export OMP_NUM_THREADS=$numnodes
 
 #! Run the executable
-$application $options1
-$application $options2
-$application $options3
-$application $options4
+amplxe-cl -quiet -collect hotspots -result-dir r001hs $application $options4
