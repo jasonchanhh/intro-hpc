@@ -2,7 +2,7 @@ default: jacobi
 
 CC = icc
 CFLAGS = -std=c99 -Wall
-LDFLAGS = -lm -O3 -fast -qopt-report=5
+LDFLAGS = -lm -O3 -fast -openmp -qopt-report=5
 SRC = jacobi.c
 
 TCC = tau_cc.sh

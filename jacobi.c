@@ -23,6 +23,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/time.h>
+#include <omp.h>
 
 static int N;
 static int MAX_ITERATIONS;
@@ -60,9 +61,10 @@ int run(float *restrict A, float *restrict b, float *restrict x, float *restrict
       dot = 0.0;
       diagonal = A[row + row*N]; // this accesses the diagonals
       A[row + row*N] = 0;
+#pragma omp parallel for reduction(+:dot)
       for (col = 0; col < N; col++)
       {
-          dot += A[row*N + col] * x[col]; // this is accessed row-column order
+          dot = dot + (A[row*N + col] * x[col]); // this is accessed row-column order
       }
       A[row + row*N] = diagonal;
       xtmp[row] = (b[row] - dot) / diagonal;
