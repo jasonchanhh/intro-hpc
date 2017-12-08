@@ -3,6 +3,7 @@
 #include <stdlib.h>
 
 #define N 10
+#define REPEAT 10
 
 int main (int argc, char *argv[]) {
 
