@@ -32,9 +32,8 @@ int main (int argc, char *argv[]) {
 
   for(j=0; j<REPEAT; j++) {
 #pragma omp parallel for private(tid)
-    tid = omp_get_thread_num();
-    printf("Thread = %d\n", tid);
     for (i=0; i<N; i++) {
+      tid = omp_get_thread_num();
       a[i] = b[i];
       printf("Thread[%d], a is : %d, at (%d,%d)\n",tid, a[i], i, j);
     }
