@@ -1,20 +1,15 @@
 #!/bin/bash
-#!
-#! Sample PBS file
-#!
-#! Name of job
 
 #PBS -N OPENMP
-#PBS -joe
 #PBS -o OUT
 #PBS -q teaching
-#PBS -l nodes=1:ppn=4,walltime=00:05:00
+#PBS -l nodes=1:ppn=16,walltime=00:05:00
 
 #! Mail to user if job aborts
 #PBS -m a
 
-#! Full path to application + application name
-application="./test"
+#! application name
+application="./hello_c.exe"
 
 #! Run options for the application
 options=""
@@ -31,7 +26,6 @@ echo Running on host `hostname`
 echo Time is `date`
 echo Directory is `pwd`
 echo PBS job ID is $PBS_JOBID
-echo Application name is $application
 echo This jobs runs on the following machines:
 echo `cat $PBS_NODEFILE | uniq`
 
