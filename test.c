@@ -8,6 +8,7 @@ int main (int argc, char *argv[]) {
 
   int a[N], b[N];
   int tid;
+  int i,j;
 
   for (i=0;i<N;i++) {
     a[i]=0;
