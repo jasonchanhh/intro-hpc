@@ -30,6 +30,7 @@ static int MAX_ITERATIONS;
 static int SEED;
 static double CONVERGENCE_THRESHOLD;
 
+#define CHUNKSIZE 10
 #define SEPARATOR "-------------------------------------\n"
 
 // Return the current time in seconds since the Epoch
@@ -51,6 +52,8 @@ int run(float *restrict A, float *restrict b, float *restrict x, float *restrict
   float *restrict ptrtmp;
   // float diagonal;
 
+  int chunk = CHUNKSIZE;
+
   // Loop until converged or maximum iterations reached
   itr = 0;
   do
@@ -58,7 +61,7 @@ int run(float *restrict A, float *restrict b, float *restrict x, float *restrict
     sqdiff = 0.0;
     // sumsqdiff = 0.0;
     // Perfom Jacobi iteration
-#pragma omp parallel for reduction(+:sqdiff)
+#pragma omp parallel for schedule(static,chunk) reduction(+:sqdiff)
 //   {
 // #pragma omp for
     for (row = 0; row < N; row++)
