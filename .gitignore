@@ -2,3 +2,5 @@ jacobi
 *.out
 *.pomp.*
 profile.*
+OUT
+test
