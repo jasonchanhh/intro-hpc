@@ -57,7 +57,6 @@ int run(float *restrict A, float *restrict b, float *restrict x, float *restrict
   {
     sqdiff = 0.0;
     sumsqdiff = 0.0;
-    diagonal = 0.0;
     // Perfom Jacobi iteration
 #pragma omp parallel shared(sumsqdiff) firstprivate(sqdiff)
   {
