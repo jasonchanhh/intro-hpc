@@ -26,7 +26,7 @@ int main (int argc, char *argv[]) {
 //     for (i=0; i<N; i++) {
 //       a[i] = b[i];
       // printf("Thread[%d], a is : %d, at (%d,%d)\n",tid, a[i], i, j);
-    }
+    // }
   }
 
 
