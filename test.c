@@ -20,8 +20,8 @@ int main (int argc, char *argv[]) {
   int tid = omp_get_thread_num();
   printf("Thread = %d\n", tid);
 
-  for( int j=0; j<REPEAT; j++) {
-    printf("Thread[%d], a is : %d, at (%d)\n",tid, a[i], j);
+  // for( int j=0; j<REPEAT; j++) {
+  //   printf("Thread[%d], a is : %d, at (%d)\n",tid, a[i], j);
 // #pragma omp for
 //     for (i=0; i<N; i++) {
 //       a[i] = b[i];
