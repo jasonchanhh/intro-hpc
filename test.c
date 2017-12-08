@@ -16,7 +16,7 @@ int main (int argc, char *argv[]) {
     b[i]=rand();
   }
 
-#pragma omp parallel shared(a)
+#pragma omp parallel {
   int tid = omp_get_thread_num();
   printf("Thread = %d\n", tid);
 
@@ -29,7 +29,7 @@ int main (int argc, char *argv[]) {
 //     }
   }
 
-
+}
 //   for(j=0; j<REPEAT; j++) {
 // #pragma omp parallel for private(tid)
 //     for (i=0; i<N; i++) {
