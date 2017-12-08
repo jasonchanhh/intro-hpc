@@ -56,13 +56,13 @@ int run(float *restrict A, float *restrict b, float *restrict x, float *restrict
   {
     sqdiff = 0.0;
     // Perfom Jacobi iteration
-#pragma omp parallel for shared(dot) private(row,col)
+// #pragma omp parallel for shared(dot) private(row,col)
     for (row = 0; row < N; row++)
     {
       dot = 0.0;
       diagonal = A[row + row*N]; // this accesses the diagonals
       A[row + row*N] = 0;
-// #pragma omp parallel for reduction(+:dot)
+#pragma omp parallel for reduction(+:dot)
       for (col = 0; col < N; col++)
       {
           dot = dot + (A[row*N + col] * x[col]); // this is accessed row-column order
@@ -104,9 +104,9 @@ int main(int argc, char *argv[])
 
   // Initialize data
   srand(SEED);
-// #pragma omp parallel private(row, col) firstprivate(rowsum)
-// #pragma omp for
-  for (int row = 0; row < N; row++)
+  int row;
+#pragma omp parallel for private(A,b,x)
+  for (row = 0; row < N; row++)
   {
     float rowsum = 0.0;
     for (int col = 0; col < N; col++)
