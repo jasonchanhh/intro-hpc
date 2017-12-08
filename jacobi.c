@@ -104,6 +104,8 @@ int main(int argc, char *argv[])
 
   // Initialize data
   srand(SEED);
+// #pragma omp parallel private(row, col) firstprivate(rowsum)
+// #pragma omp for
   for (int row = 0; row < N; row++)
   {
     float rowsum = 0.0;
