@@ -46,7 +46,7 @@ int run(float *restrict A, float *restrict b, float *restrict x, float *restrict
   int row, col;
   // float diff;
   float sqdiff;
-  float sumsqdiff;
+  // float sumsqdiff;
   // float dot;
   float *restrict ptrtmp;
   // float diagonal;
@@ -56,11 +56,11 @@ int run(float *restrict A, float *restrict b, float *restrict x, float *restrict
   do
   {
     sqdiff = 0.0;
-    sumsqdiff = 0.0;
+    // sumsqdiff = 0.0;
     // Perfom Jacobi iteration
-#pragma omp parallel shared(sumsqdiff) firstprivate(sqdiff)
-  {
-#pragma omp for
+#pragma omp parallel reduction(+:sqdiff)
+//   {
+// #pragma omp for
     for (row = 0; row < N; row++)
     {
       float dot = 0.0;
@@ -77,15 +77,15 @@ int run(float *restrict A, float *restrict b, float *restrict x, float *restrict
       sqdiff += diff * diff;
 
     }
-#pragma omp critical
-    sumsqdiff += sqdiff;
-  }
+// #pragma omp critical
+//     sumsqdiff += sqdiff;
+//   }
     ptrtmp = x;
     x      = xtmp;
     xtmp   = ptrtmp;
 
     itr++;
-  } while ((itr < MAX_ITERATIONS) && (sqrt(sumsqdiff) > CONVERGENCE_THRESHOLD));
+  } while ((itr < MAX_ITERATIONS) && (sqrt(sqdiff) > CONVERGENCE_THRESHOLD));
 
   return itr;
 }
