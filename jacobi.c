@@ -57,16 +57,16 @@ int run(float *restrict A, float *restrict b, float *restrict x, float *restrict
   {
     sqdiff = 0.0;
     sumsqdiff = 0.0;
+    diagonal = 0.0;
     // Perfom Jacobi iteration
 #pragma omp parallel shared(sumsqdiff) firstprivate(sqdiff)
-{
+  {
 #pragma omp for
     for (row = 0; row < N; row++)
     {
       float dot = 0.0;
       float diagonal = A[row + row*N]; // this accesses the diagonals
       A[row + row*N] = 0;
-// #pragma omp parallel for reduction(+:dot)
       for (int col = 0; col < N; col++)
       {
           dot = dot + (A[row*N + col] * x[col]); // this is accessed row-column order
@@ -75,12 +75,12 @@ int run(float *restrict A, float *restrict b, float *restrict x, float *restrict
       xtmp[row] = (b[row] - dot) / diagonal;
       // Check for convergence, merge loops
       float diff    = x[row] - xtmp[row];
-      float sqdiff += diff * diff;
+      sqdiff += diff * diff;
 
     }
 #pragma omp critical
     sumsqdiff += sqdiff;
-}
+  }
     ptrtmp = x;
     x      = xtmp;
     xtmp   = ptrtmp;
