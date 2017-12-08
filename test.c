@@ -8,19 +8,19 @@
 int main (int argc, char *argv[]) {
 
   int a[N], b[N];
-  int tid;
-  int i,j;
+  // int tid;
+  int i;
 
   for (i=0;i<N;i++) {
     a[i]=0;
     b[i]=rand();
   }
 
-#pragma omp parallel private(j, tid)
-  tid = omp_get_thread_num();
+#pragma omp parallel
+  int tid = omp_get_thread_num();
   printf("Thread = %d\n", tid);
 
-  for(j=0; j<REPEAT; j++) {
+  for( int j=0; j<REPEAT; j++) {
     printf("Thread[%d], a is : %d, at (%d)\n",tid, a[i], j);
 // #pragma omp for
 //     for (i=0; i<N; i++) {
