@@ -11,7 +11,7 @@
 #PBS -m a
 
 #! application name
-application="./jacobi"
+application="numactl --cpunodebind=0 --membind=0 ./jacobi"
 
 #! Run options for the application
 options1="--norder 500 --iterations 20000"
@@ -39,7 +39,7 @@ echo The number of nodes is $numnodes
 
 export OMP_NUM_THREADS=$numnodes
 export OMP_PLACES=cores
-export OMP_PROC_BIND=close
+export OMP_PROC_BIND=spread
 
 #! Run the executable
 $application $options1
