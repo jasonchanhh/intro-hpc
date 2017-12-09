@@ -60,7 +60,7 @@ int run(float *restrict A, float *restrict b, float *restrict x, float *restrict
     sqdiff = 0.0;
     // sumsqdiff = 0.0;
     // Perfom Jacobi iteration
-#pragma omp parallel for schedule(static,CHUNKSIZE) reduction(+:sqdiff)
+#pragma omp parallel for schedule(dynamic,CHUNKSIZE) reduction(+:sqdiff)
 //   {
 // #pragma omp for
     for (row = 0; row < N; row++)
@@ -112,7 +112,7 @@ int main(int argc, char *argv[])
   // Initialize data
   srand(SEED);
   int row;
-#pragma omp parallel for schedule(static,CHUNKSIZE)
+#pragma omp parallel for schedule(dynamic,CHUNKSIZE)
   for (row = 0; row < N; row++)
   {
     float rowsum = 0.0;
@@ -134,7 +134,7 @@ int main(int argc, char *argv[])
 
   // Check error of final solution
   float err = 0.0;
-#pragma omp parallel for schedule(static,CHUNKSIZE) reduction(+:err)
+#pragma omp parallel for schedule(dynamic,CHUNKSIZE) reduction(+:err)
   for (row = 0; row < N; row++)
   {
     float tmp = 0.0;
