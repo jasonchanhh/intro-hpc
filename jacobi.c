@@ -30,7 +30,7 @@ static int MAX_ITERATIONS;
 static int SEED;
 static double CONVERGENCE_THRESHOLD;
 
-static int CHUNKSIZE = 1000;
+static int CHUNKSIZE = 100;
 #define SEPARATOR "-------------------------------------\n"
 
 // Return the current time in seconds since the Epoch
