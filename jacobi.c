@@ -134,8 +134,7 @@ int main(int argc, char *argv[])
   double solve_end = get_timestamp();
 
   // Check error of final solution
-  float err = 0.0;
-  int row;
+  float err = 0.0;s
 #pragma omp parallel for reduction(+:err)
   for (row = 0; row < N; row++)
   {
@@ -147,7 +146,7 @@ int main(int argc, char *argv[])
     tmp = b[row] - tmp;
     err += tmp*tmp;
   }
-  
+
   err = sqrt(err);
 
   double total_end = get_timestamp();
