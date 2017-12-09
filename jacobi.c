@@ -113,7 +113,7 @@ int main(int argc, char *argv[])
   // Initialize data
   srand(SEED);
   int row;
-// #pragma omp parallel for
+#pragma omp parallel for
   for (row = 0; row < N; row++)
   {
     float rowsum = 0.0;
@@ -135,7 +135,9 @@ int main(int argc, char *argv[])
 
   // Check error of final solution
   float err = 0.0;
-  for (int row = 0; row < N; row++)
+  int row;
+#pragma omp parallel for reduction(+:err)
+  for (row = 0; row < N; row++)
   {
     float tmp = 0.0;
     for (int col = 0; col < N; col++)
@@ -145,6 +147,7 @@ int main(int argc, char *argv[])
     tmp = b[row] - tmp;
     err += tmp*tmp;
   }
+  
   err = sqrt(err);
 
   double total_end = get_timestamp();
