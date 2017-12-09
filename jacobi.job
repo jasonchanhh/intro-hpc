@@ -11,7 +11,7 @@
 #PBS -m a
 
 #! application name
-application="numactl --cpunodebind=1 --membind=1 ./jacobi"
+application="numactl --cpunodebind=0 --membind=0 ./jacobi"
 
 #! Run options for the application
 options1="--norder 500 --iterations 20000"
