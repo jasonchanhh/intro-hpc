@@ -52,7 +52,6 @@ int run(float *restrict A, float *restrict b, float *restrict x, float *restrict
   float *restrict ptrtmp;
   // float diagonal;
 
-  int chunk = CHUNKSIZE;
 
   // Loop until converged or maximum iterations reached
   itr = 0;
@@ -135,7 +134,7 @@ int main(int argc, char *argv[])
 
   // Check error of final solution
   float err = 0.0;
-#pragma omp parallel for schedule(schedule,CHUNKSIZE) reduction(+:err)
+#pragma omp parallel for schedule(static,CHUNKSIZE) reduction(+:err)
   for (row = 0; row < N; row++)
   {
     float tmp = 0.0;
